@@ -1,0 +1,26 @@
+- title: RAG
+  path: notebooks/Vanilla_RAG.ipynb
+  date: 2024-01-01
+  authors:
+    - malexw
+    - scottmx81
+  tags:
+    - rag
+
+- title: Tool Use
+  path: notebooks/Vanilla_Tool_Use.ipynb
+  date: 2024-01-02
+  authors:
+    - scottmx81
+  tags:
+    - rag
+    - tools
+
+- title: Wikipedia Semantic Search with Cohere Embedding Archives
+  path: notebooks/Wikipedia_Semantic_Search_With_Cohere_Embeddings_Archives.ipynb
+  date: 2024-01-03
+  authors:
+    - malexw
+  tags:
+    - completions
+    - chat
