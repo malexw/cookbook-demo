@@ -1,0 +1,240 @@
+{%- extends 'base.html.j2' -%}
+{% from 'mathjax.html.j2' import mathjax %}
+{% from 'mermaidjs.html.j2' import mermaid_js %}
+{% from 'jupyter_widgets.html.j2' import jupyter_widgets %}
+
+{%- block header -%}
+<!DOCTYPE html>
+<html lang="{{ resources.language_code }}">
+<head>
+{%- block html_head -%}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% set nb_title = nb.metadata.get('title', resources['metadata']['name']) | escape_html_keep_quotes %}
+<title>{{nb_title}}</title>
+
+{%- block html_head_js -%}
+{%- block html_head_js_requirejs -%}
+<script src="{{ resources.require_js_url }}"></script>
+{%- endblock html_head_js_requirejs -%}
+{%- endblock html_head_js -%}
+
+{% block jupyter_widgets %}
+  {%- if "widgets" in nb.metadata -%}
+    {{ jupyter_widgets(resources.jupyter_widgets_base_url, resources.html_manager_semver_range, resources.widget_renderer_url) }}
+  {%- endif -%}
+{% endblock jupyter_widgets %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% for css in resources.inlining.css -%}
+  <style type="text/css">
+    {{ css }}
+  </style>
+{% endfor %}
+
+{% block notebook_css %}
+{{ resources.include_css("static/index.css") }}
+{% if resources.theme == 'dark' %}
+    {{ resources.include_css("static/theme-dark.css") }}
+{% elif resources.theme == 'light'  %}
+    {{ resources.include_css("static/theme-light.css") }}
+{% else %}
+    {{ resources.include_lab_theme(resources.theme) }}
+{% endif %}
+<style type="text/css">
+/* Force rendering true colors when outputing to pdf */
+* {
+  -webkit-print-color-adjust: exact;
+}
+
+/* Misc */
+a.anchor-link {
+  display: none;
+}
+
+/* Input area styling */
+.jp-InputArea {
+  overflow: hidden;
+}
+
+.jp-InputArea-editor {
+  overflow: hidden;
+}
+
+.cm-editor.cm-s-jupyter .highlight pre {
+/* weird, but --jp-code-padding defined to be 5px but 4px horizontal padding is hardcoded for pre.cm-line */
+  padding: var(--jp-code-padding) 4px;
+  margin: 0;
+
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+
+}
+
+.jp-OutputArea-output pre {
+  line-height: inherit;
+  font-family: inherit;
+}
+
+.jp-RenderedText pre {
+  color: var(--jp-content-font-color1);
+  font-size: var(--jp-code-font-size);
+}
+
+/* Hiding the collapser by default */
+.jp-Collapser {
+  display: none;
+}
+
+@page {
+    margin: 0.5in; /* Margin for each printed piece of paper */
+}
+
+@media print {
+  .jp-Cell-inputWrapper,
+  .jp-Cell-outputWrapper {
+    display: block;
+  }
+}
+</style>
+
+{% endblock notebook_css %}
+
+{%- block html_head_js_mathjax -%}
+{{ mathjax(resources.mathjax_url) }}
+{%- endblock html_head_js_mathjax -%}
+
+{%- block html_head_js_mermaidjs -%}
+{{ mermaid_js(resources.mermaid_js_url) }}
+{%- endblock html_head_js_mermaidjs -%}
+
+{%- block html_head_css -%}
+{%- endblock html_head_css -%}
+
+{%- endblock html_head -%}
+</head>
+{%- endblock header -%}
+
+{%- block body_header -%}
+{% if resources.theme == 'dark' %}
+<body class="jp-Notebook" data-jp-theme-light="false" data-jp-theme-name="JupyterLab Dark">
+{% else %}
+<body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+{% endif %}
+<main>
+<header class="Header3zzata9F_ZPQ rm-Header " style="background-image: url(&quot;https://files.readme.io/2c386c9-Frame_427320787.svg&quot;);">
+  <div class="rm-Header-top Header-topuTMpygDG4e1V">
+    <div class="rm-Container rm-Container_flex">
+      <div class="rm-Header-left Header-leftADQdGVqx1wqU">
+        <a class="rm-Logo Header-logo1Xy41PtkzbdG" href="https://docs.cohere.com/" target="_self">
+          <img alt="Cohere AI" class="rm-Logo-img  Header-logo-img3YvV4lcGKkeb" src="https://files.readme.io/e8cca57-small-lockup.png">
+        </a>
+      </div>
+      <!-- <div class="rm-Header-left Header-leftADQdGVqx1wqU Header-left_mobile1RG-X93lx6PF">
+        <div>
+          <button aria-label="Toggle navigation menu" class="icon-menu menu3d6DYNDa3tk5" type="button"></button>
+          <div class="">
+            <div class="Flyout95xhYIIoTKtc undefined rm-Flyout" data-testid="flyout">
+              <div class="MobileFlyout1hHJpUd-nYkd">
+                <a class="rm-MobileFlyout-item NavItem-item1gDDTqaXGhm1 NavItem-item_mobile1qG3gd-Mkck- " href="/docs" target="_self">
+                  <i class="NavItem-item-anchorzz3banOxXKjr icon-guides"></i>
+                  <span class="NavItem-textSlZuuL489uiw">Guides and Concepts</span>
+                </a>
+                <a class="rm-MobileFlyout-item NavItem-item1gDDTqaXGhm1 NavItem-item_mobile1qG3gd-Mkck- " href="/reference" target="_self">
+                  <i class="NavItem-item-anchorzz3banOxXKjr icon-references"></i>
+                  <span class="NavItem-textSlZuuL489uiw">API Reference</span>
+                </a>
+                <a class="rm-MobileFlyout-item NavItem-item1gDDTqaXGhm1 NavItem-item_mobile1qG3gd-Mkck- " href="/changelog" target="_self">
+                  <i class="NavItem-item-anchorzz3banOxXKjr icon-changelog"></i>
+                  <span class="NavItem-textSlZuuL489uiw">Release Notes</span>
+                </a>
+                <hr class="MobileFlyout-divider10xf7R2X1MeW">
+                <a class="MobileFlyout-logo3Lq1eTlk1K76 Header-logo1Xy41PtkzbdG rm-Logo" href="https://docs.cohere.com/" target="_self">
+                  <img alt="Cohere AI" class="Header-logo-img3YvV4lcGKkeb rm-Logo-img" src="https://files.readme.io/e8cca57-small-lockup.png">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="Header-left-nav2xWPWMNHOGf_">
+          <i class="undefined Header-left-nav-icon10glJKFwewOv"></i>
+        </div> -->
+      </div>
+      <!-- <div class="rm-Header-right Header-right21PC2XTT6aMg">
+        <span class="Header-right_desktop14ja01RUQ7HE"></span>
+        <div class="Header-searchtb6Foi0-D9Vx">
+          <button aria-label="Search" class="rm-SearchToggle" data-symbol="⌘">
+            <div class="rm-SearchToggle-icon icon-search1"></div>
+          </button>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div class="rm-Header-bottom" style="display:flex">
+    <div class="Header-bottom2eLKOFXMEmh5 rm-Header-bottom_withProjects Header-bottom_withProjects2M-cAt2wdVuU ">
+      <div class="rm-Container rm-Container_flex">
+        <nav class="Header-leftADQdGVqx1wqU">
+          <h1 class="h3 !font-normal">Cohere Documentation</h1>
+        </nav>
+        <!-- <div class="rm-Header-search Header-searchtb6Foi0-D9Vx rm-Header-search_feather Header-search_featherYsmQBn55F3d9">
+          <button aria-label="Search" class="rm-SearchToggle" data-symbol="⌘">
+            <div class="rm-SearchToggle-icon icon-search1"></div>
+            <div class="Header-search-placeholder3Vx4OmMPcjAi rm-SearchToggle-placeholder">Search</div>
+            <div class="rm-SearchToggle-shortcut">⌘K</div>
+          </button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <!-- <div class="hub-search-results--reactApp " id="hub-search-results">
+    <div class="hub-container">
+      <div class="modal-backdrop show-modal rm-SearchModal" role="button" tabindex="0">
+        <div class="AlgoliaSearch1uFG9utXJ4-6 " id="AppSearch" role="tabpanel" tabindex="0">
+          <div class="AlgoliaSearch-Col2ycAQ9JMrSYg"><div class="SearchBox1zrymSLJX6TP">
+            <input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="0" class="Input Input_md SearchBox-InputUQZAW9QXMe-c" type="search" value="">
+          </div>
+          <div class="SearchTabs9v4kr3U2lwvI">
+            <div class="Tabs Tabs-list" role="tablist">
+              <div aria-label="All" aria-selected="true" class="SearchTabs-Tab2715KRxrb5JT Tabs-listItem Tabs-listItem_active" role="tab" tabindex="-1">
+                <span class="SearchTabs-Tab2715KRxrb5JT"><i class="icon icon-search1"></i>All</span>
+              </div>
+              <div aria-label="Guides" aria-selected="false" class="SearchTabs-Tab2715KRxrb5JT Tabs-listItem " role="tab" tabindex="-1">
+                <span class="SearchTabs-Tab2715KRxrb5JT"><i class="icon icon-guides"></i>Guides and Concepts</span>
+              </div>
+              <div aria-label="Reference" aria-selected="false" class="SearchTabs-Tab2715KRxrb5JT Tabs-listItem " role="tab" tabindex="-1">
+                <span class="SearchTabs-Tab2715KRxrb5JT"><i class="icon icon-references"></i>Reference</span>
+              </div>
+              <div aria-label="Changelog" aria-selected="false" class="SearchTabs-Tab2715KRxrb5JT Tabs-listItem " role="tab" tabindex="-1">
+                <span class="SearchTabs-Tab2715KRxrb5JT"><i class="icon icon-changelog"></i>Release Notes</span>
+              </div>
+              <div aria-label="Pages" aria-selected="false" class="SearchTabs-Tab2715KRxrb5JT Tabs-listItem " role="tab" tabindex="-1">
+                <span class="SearchTabs-Tab2715KRxrb5JT"><i class="icon icon-custom-pages-2"></i>Pages</span>
+              </div>
+            </div>
+          </div>
+          <div class="SearchResults2G1wv8-Fb__d SearchResults_empty4svl7jAtcKBq">
+            <i class="icon icon-search"></i>
+            <h6 class="Title Title6">Start typing to search…</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div></header>
+{%- endblock body_header -%}
+
+{% block body_footer %}
+</main>
+</body>
+{% endblock body_footer %}
+
+{% block footer %}
+{% block footer_js %}
+{% endblock footer_js %}
+{{ super() }}
+</html>
+{% endblock footer %}

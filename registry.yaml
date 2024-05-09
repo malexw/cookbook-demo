@@ -1,6 +1,7 @@
 - title: RAG
   path: notebooks/Vanilla_RAG.ipynb
   date: 2024-01-01
+  category: 663c36e687b029004bdffaff
   authors:
     - malexw
     - scottmx81
@@ -10,6 +11,7 @@
 - title: Tool Use
   path: notebooks/Vanilla_Tool_Use.ipynb
   date: 2024-01-02
+  category: 663c36f4d480930011fd1b70
   authors:
     - scottmx81
   tags:
@@ -19,6 +21,7 @@
 - title: Wikipedia Semantic Search with Cohere Embedding Archives
   path: notebooks/Wikipedia_Semantic_Search_With_Cohere_Embeddings_Archives.ipynb
   date: 2024-01-03
+  category: 663c36f9ae0b9d004ceaa185
   authors:
     - malexw
   tags:
